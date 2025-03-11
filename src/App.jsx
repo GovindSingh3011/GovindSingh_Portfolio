@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from "./components/NavBar/NavBar";
-// import Footer from "./components/Footer";
+import Footer from "./components/Footer/Footer";
 import Preloader from "./components/PreLoader/PreLoader";
 // import ScrollToTop from "./components/ScrollToTop";
 
@@ -25,7 +25,7 @@ function App() {
         <Navbar />
         {/* <ScrollToTop /> */}
         <Outlet />
-        {/* <Footer /> */}
+        <Footer />
       </div>
     </>
   );
