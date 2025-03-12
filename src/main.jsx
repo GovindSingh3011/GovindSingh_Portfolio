@@ -5,6 +5,7 @@ import './index.css'
 import App from './App.jsx'
 import Home from './components/Home/Home.jsx'
 import Resume from './components/Resume/Resume.jsx'
+import Contact from './components/Contact/Contact.jsx'
 
 
 const router = createBrowserRouter(
@@ -12,6 +13,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />}>
       <Route path="" element={<Home />} />
       <Route path="/resume" element={<Resume />} />
+      <Route path="/contact" element={<Contact />} />
 
       {/* <Route path="/about" element={<About />} /> */}
 
