@@ -3,7 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import homeLogo from "../../assets/home-main.svg";
 import Particle from "../Particle";
 import Type from "./Type";
-import myImg from "../../assets/avatar.png";
+import myImg from "../../assets/avatar.svg";
 import Tilt from "react-parallax-tilt";
 import { AiFillGithub } from "react-icons/ai";
 import { FaLinkedinIn } from "react-icons/fa";
