@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router";
 import React, { useState, useEffect } from "react";
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';

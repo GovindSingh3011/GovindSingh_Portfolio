@@ -4,7 +4,7 @@ import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
 import logo from "../../assets/GS.svg";
 import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import "./NavBar.css";
 
 function NavBar() {
