@@ -3,6 +3,7 @@ import "./Contact.css";
 import { FiMail, FiPhone, FiMapPin } from "react-icons/fi";
 import emailjs from "@emailjs/browser";
 import Particle from "../Particle";
+import CustomAlert from "./CustomAlert"; 
 
 const Contact = () => {
   const service_key = "portfoliocontactform";
@@ -41,7 +42,7 @@ const Contact = () => {
     emailjs.send(service_key, template_key, templateParams, public_key).then(
       (response) => {
         console.log("Email sent successfully!", response.status, response.text);
-        alert("Your message has been sent successfully!");
+        CustomAlert("Your message has been sent successfully!", "success");
         setFormData({
           firstName: "",
           lastName: "",
@@ -53,7 +54,7 @@ const Contact = () => {
       },
       (error) => {
         console.error("Email sending failed:", error);
-        alert("Failed to send message. Please try again later.");
+        CustomAlert("Failed to send message. Please try again later.", "error");
       }
     );
   };
