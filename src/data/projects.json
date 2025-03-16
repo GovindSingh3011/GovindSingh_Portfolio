@@ -1,6 +1,6 @@
 [
   {
-    "imgPath": "src/assets/Projects/gameslibri.png",
+    "imgPath": "Projects/gameslibri.png",
     "isBlog": false,
     "title": "GamesLibri",
     "description": "GamesLibri is a React-based web application designed to help users discover amazing free games. It provides a seamless interface to explore a curated list of games with detailed information and responsive design for an optimal user experience.",
@@ -9,21 +9,21 @@
     "category": "Web Development"
   },
   {
-    "imgPath": "src/assets/Projects/ZidioBlog.png",
+    "imgPath": "Projects/ZidioBlog.png",
     "isBlog": false,
     "title": "ZidioBlog",
     "description": "For the tech blog website design at Zidio Development, I analyzed company targets, then created wireframes and final designs in Figma, ensuring a user-friendly and appealing website.",
     "ghLink": "https://github.com/GovindSingh3011/ZidioDev_Intern/tree/master/Blog%20Website",
-    "demoLink": "src/assets/Projects/ZidioBlogPreview.mp4",
+    "demoLink": "Projects/ZidioBlogPreview.mp4",
     "category": "UI/UX"
   },
   {
-    "imgPath": "src/assets/Projects/ZidioECom.png",
+    "imgPath": "Projects/ZidioECom.png",
     "isBlog": false,
     "title": "Zidio E-commerce",
     "description": "Designed an intuitive and visually appealing e-commerce website using Figma, ensuring a seamless user experience. Conducted through market research and created detailed wireframes to meet Zidio's targets.",
     "ghLink": "https://github.com/GovindSingh3011/ZidioDev_Intern/tree/master/E-commerce%20Page",
-    "demoLink": "src/assets/Projects/ZidioEComPreview.mp4",
+    "demoLink": "Projects/ZidioEComPreview.mp4",
     "category": "UI/UX"
   }
 ]
