@@ -9,6 +9,14 @@
     "category": "Web Development"
   },
   {
+    "imgPath": "Projects/Ansible_Playbook.png",
+    "isBlog": false,
+    "title": "Ansible Playbooks for Web Server and Website Deployment",
+    "description": "Automates the installation and configuration of Nginx and Apache servers, along with website deployment. It ensures efficient, consistent, and scalable web hosting with minimal manual effort.",
+    "ghLink": "https://github.com/GovindSingh3011/Ansible_Playbook",
+    "category": "DevOps"
+  },
+  {
     "imgPath": "Projects/ZidioBlog.png",
     "isBlog": false,
     "title": "ZidioBlog",
