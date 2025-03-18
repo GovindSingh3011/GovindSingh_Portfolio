@@ -3,13 +3,12 @@ import "./Contact.css";
 import { FiMail, FiPhone, FiMapPin } from "react-icons/fi";
 import emailjs from "@emailjs/browser";
 import Particle from "../Particle";
-import CustomAlert from "./CustomAlert"; 
+import CustomAlert from "./CustomAlert";
 
 const Contact = () => {
-  const service_key = "portfoliocontactform";
-  const template_key = "contactformtemplate";
-  const public_key = "V_mkrOB8lgHa7llrL";
-
+  const service_key = import.meta.env.VITE_SERVICE_KEY;
+  const template_key = import.meta.env.VITE_TEMPLATE_KEY;
+  const public_key = import.meta.env.VITE_PUBLIC_KEY;
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
