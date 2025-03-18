@@ -101,7 +101,8 @@ const Contact = () => {
                 required
               />
               <input
-                type="number"
+                type="text" 
+                pattern="[0-9]{10}"
                 name="phone"
                 placeholder="Phone number"
                 autoComplete="off"
