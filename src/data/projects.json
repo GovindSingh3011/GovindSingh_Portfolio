@@ -1,5 +1,14 @@
 [
   {
+    "imgPath": "Projects/KitaabKosh.png",
+    "isBlog": false,
+    "title": "KitaabKosh",
+    "description": "KitaabKosh is a team project that serves as a book management system for organizing books efficiently. I contributed as the Frontend Developer and handled deployment, focusing on creating a user-friendly interface and ensuring smooth platform accessibility.",
+    "ghLink": "https://github.com/GovindSingh3011/KitaabKosh",
+    "demoLink": "https://kitaabkosh.vercel.app/",
+    "category": "Web Development"
+  },
+  {
     "imgPath": "Projects/gameslibri.png",
     "isBlog": false,
     "title": "GamesLibri",
