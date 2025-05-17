@@ -1,0 +1,81 @@
+.project-list-container {
+  padding: 2rem;
+  background: rgb(10, 4, 22);
+  border-radius: 12px;
+  color: white;
+  max-width: 800px;
+  margin: 2rem auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.project-list-title {
+  text-align: center;
+  color: #a78bfa;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+}
+
+.error-message {
+  color: #f87171;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.project-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.project-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgb(27, 20, 41);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  gap: 1rem; /* Add spacing between elements */
+}
+
+.project-info {
+  flex: 1; /* Allow the title and description to take up available space */
+  overflow: hidden; /* Prevent overflow of long text */
+}
+
+.project-info h3 {
+  margin: 0;
+  color: #a78bfa;
+  font-size: 1.2rem;
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow: hidden; /* Hide overflowing text */
+  text-overflow: ellipsis; /* Add ellipsis for long text */
+}
+
+.project-info p {
+  margin: 0.5rem 0 0;
+  color: #9ca3af;
+  font-size: 1rem;
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow: hidden; /* Hide overflowing text */
+  text-overflow: ellipsis; /* Add ellipsis for long text */
+}
+
+.delete-button {
+  background: #ff5252;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  flex-shrink: 0; /* Prevent the button from shrinking */
+  width: 100px; /* Fixed width for consistent alignment */
+  text-align: center;
+}
+
+.delete-button:hover {
+  background: #ef4444;
+}

@@ -1,0 +1,11 @@
+.dashboard-container {
+  min-height: 100vh;
+  color: white;
+}
+
+.dashboard-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+}

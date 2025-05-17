@@ -1,0 +1,167 @@
+.form-section {
+  flex: 1;
+  padding: 2rem;
+  background: rgb(10, 4, 22);
+  border-radius: 12px;
+  min-width: 300px;
+  margin-top: 4rem;
+  margin-left: 10rem;
+  margin-right: 10rem;
+}
+
+.form-section h1 {
+  font-size: 2.5rem;
+  color: #a78bfa;
+  margin-bottom: 1rem;
+}
+
+.form-section p {
+  color: #9ca3af;
+  margin-bottom: 2rem;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-select {
+  max-width: 50%;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(to left, rgb(27 20 41), rgb(20 15 35));
+  border: 1px solid #2d2b3b;
+  border-radius: 6px;
+  color: white;
+  font-size: 1rem;
+}
+
+select option {
+  background: rgb(27 20 41); 
+  color: white; 
+}
+
+label {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 500;
+  display: block;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #a78bfa;
+}
+
+textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.button {
+  background: #7c3aed;
+  color: white;
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background: #6d28d9;
+}
+
+.checkbox-container {
+  margin-left: 5%;
+  margin-right: 5%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.checkbox-container input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #a78bfa;
+  border-radius: 4px;
+  background: rgb(27 20 41);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.checkbox-container input[type="checkbox"]:checked {
+  background: #7c3aed;
+  border-color: #7c3aed;
+}
+
+.checkbox-container label {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.project-list {
+  padding: 2rem;
+  background: rgb(10, 4, 22);
+  border-radius: 12px;
+  color: white;
+  max-width: 800px;
+  margin: 2rem auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.project-list h1 {
+  text-align: center;
+  color: #a78bfa;
+  margin-bottom: 1.5rem;
+}
+
+.project-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgb(27, 20, 41);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.project-item h3 {
+  margin: 0;
+  color: #a78bfa;
+}
+
+.project-item p {
+  margin: 0.5rem 0 0;
+  color: #9ca3af;
+}
+
+.error-message {
+  color: #f87171;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .form-row {
+    flex-direction: column;
+  }
+}
