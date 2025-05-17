@@ -1,12 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import ProjectCard from "./ProjectCard";
 import Particle from "../Particle";
 import "./Project.css";
-import projects from "../../data/projects.json";
 
 function Projects() {
+  const [projects, setProjects] = useState([]);
   const [filter, setFilter] = useState("All");
+
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+
+  useEffect(() => {
+    fetch(`${apiBaseUrl}/api/projects`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          setProjects(data.data);
+        }
+      })
+      .catch((err) => console.error("Error fetching projects:", err));
+  }, [apiBaseUrl]);
 
   const filteredProjects =
     filter === "All"
@@ -48,7 +61,7 @@ function Projects() {
           {filteredProjects.map((project, index) => (
             <Col md={4} className="project-card" key={index}>
               <ProjectCard
-                imgPath={project.imgPath}
+                imgPath={`${apiBaseUrl}/api/uploads/projects/${project.title}.png`}
                 isBlog={project.isBlog}
                 title={project.title}
                 description={project.description}

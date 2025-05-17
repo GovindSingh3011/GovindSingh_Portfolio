@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Container, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Particle from "../Particle";
-import pdf from "../../assets/Resume/Govind_Singh_Resume.pdf";
 import { AiOutlineDownload } from "react-icons/ai";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
@@ -10,6 +9,8 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 import "./Resume.css";
 
 function Resume() {
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+
   const [width, setWidth] = useState(1200);
 
   useEffect(() => {
@@ -23,7 +24,7 @@ function Resume() {
         <Row className="fork-btn" style={{ }}>
           <Button
             variant="primary"
-            href={pdf}
+            href={`${apiBaseUrl}/api/uploads/resumes/Govind_Singh_Resume.pdf`}
             target="_blank"
             className="fork-btn-inner"
           >
@@ -33,7 +34,7 @@ function Resume() {
         </Row>
 
         <Row className="resume">
-          <Document file={pdf} className="d-flex justify-content-center">
+          <Document file={`${apiBaseUrl}/api/uploads/resumes/Govind_Singh_Resume.pdf`} className="d-flex justify-content-center">
             <Page pageNumber={1} scale={width > 786 ? 1.7 : 0.6} />
           </Document>
         </Row>
