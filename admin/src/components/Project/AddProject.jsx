@@ -3,6 +3,7 @@ import axios from 'axios';
 import "./AddProject.css";
 
 const AddProject = ({ token }) => {
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
   const [projects, setProjects] = useState([]);
   const [newProject, setNewProject] = useState({
     title: '',
@@ -18,7 +19,7 @@ const AddProject = ({ token }) => {
 
   const fetchProjects = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/projects');
+      const response = await axios.get(`${apiBaseUrl}/api/projects`);
       setProjects(response.data.data);
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to fetch projects');
@@ -50,7 +51,7 @@ const AddProject = ({ token }) => {
     formData.append('image', file);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/uploads/projects', formData, {
+      const response = await axios.post(`${apiBaseUrl}/api/uploads/projects`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,
@@ -77,7 +78,7 @@ const AddProject = ({ token }) => {
     const finalCategory = newProject.category === 'Other' ? customCategory : newProject.category;
 
     try {
-      const response = await axios.post('http://localhost:5000/api/projects', {
+      const response = await axios.post(`${apiBaseUrl}/api/projects`, {
         ...newProject,
         category: finalCategory,
       }, {

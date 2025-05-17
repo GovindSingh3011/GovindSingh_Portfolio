@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './Login.css'; // Import the CSS file for styling
+import './Login.css';
 
 const Login = ({ setToken }) => {
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
   const [credentials, setCredentials] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', credentials);
+      const response = await axios.post(`${apiBaseUrl}/api/auth/login`, credentials);
       const token = response.data.token;
       localStorage.setItem('token', token); // Save token to local storage
       setToken(token); // Update token state

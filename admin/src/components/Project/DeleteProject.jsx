@@ -3,12 +3,13 @@ import axios from 'axios';
 import './DeleteProject.css';
 
 const ProjectList = ({ token }) => {
+    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
     const [projects, setProjects] = useState([]);
     const [error, setError] = useState('');
 
     const fetchProjects = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/projects', {
+            const response = await axios.get(`${apiBaseUrl}/api/projects`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -22,7 +23,7 @@ const ProjectList = ({ token }) => {
     const handleDelete = async (projectId) => {
         if (window.confirm('Are you sure you want to delete this project?')) {
             try {
-                await axios.delete(`http://localhost:5000/api/projects/${projectId}`, {
+                await axios.delete(`${apiBaseUrl}/api/projects/${projectId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -32,10 +33,6 @@ const ProjectList = ({ token }) => {
                 setError(err.response?.data?.message || 'Error deleting project');
             }
         }
-    };
-
-    const trimText = (text, maxLength) => {
-        return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
     };
 
     useEffect(() => {

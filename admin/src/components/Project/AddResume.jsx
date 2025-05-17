@@ -3,6 +3,7 @@ import axios from 'axios';
 import "./AddProject.css";
 
 const AddResume = ({ token }) => {
+    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
     const [error, setError] = useState('');
     const [file, setFile] = useState(null);
 
@@ -35,7 +36,7 @@ const AddResume = ({ token }) => {
 
         try {
             console.log('Uploading file:', renamedFile); // Debugging: Log the file being uploaded
-            const response = await axios.post('http://localhost:5000/api/uploads/resumes', formData, {
+            const response = await axios.post(`${apiBaseUrl}/api/uploads/resumes`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer ${token}`,
@@ -66,7 +67,6 @@ const AddResume = ({ token }) => {
             <form onSubmit={addProject}>
                 <div className="form-row">
                     <label>Upload Resume:</label>
-                    {/* <input type="file" accept="application/pdf" required onChange={handleFileChange} /> */}
                     <input type="file" name="resume" accept="application/pdf" required onChange={handleFileChange} />
                 </div>
                 <button className='button' type="submit">Add Resume</button>
