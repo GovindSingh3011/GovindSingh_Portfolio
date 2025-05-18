@@ -5,6 +5,10 @@ const ProjectSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Project title is required']
   },
+  imageUrl: {
+    type: String,
+    required: true,
+  },
   description: {
     type: String,
     required: [true, 'Project description is required'],

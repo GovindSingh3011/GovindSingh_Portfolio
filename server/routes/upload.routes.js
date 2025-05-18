@@ -1,77 +1,46 @@
 const express = require("express");
 const multer = require("multer");
-const cors = require('cors');
-const { protect, adminOnly } = require('../middleware/auth.middleware');
+const cloudinary = require("cloudinary").v2;
+const { protect, adminOnly } = require("../middleware/auth.middleware");
+const fs = require("fs");
 
 const router = express.Router();
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './uploads/projects');
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  }
+// Cloudinary configuration
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const upload = multer({ storage: storage });
+// Multer config for local file storage (in memory)
+const upload = multer({ dest: "tmp/" });
 
-router.post("/uploads/projects",protect,adminOnly, upload.single('image'), (req, res) => {
-  console.log(req.body);
-  console.log(req.file);
-  res.end();
-});
-
-// Enable CORS for static files
-router.use('/uploads/projects', cors(), express.static('uploads/projects'));
-
-// Storage for resume (PDF) uploads
-const resumeStorage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './uploads/resumes'); // Store PDFs in uploads/resumes
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname); // Save with original name
-  }
-});
-
-// Only accept PDF files
-const pdfFilter = (req, file, cb) => {
-  if (file.mimetype === 'application/pdf') {
-    cb(null, true);
-  } else {
-    cb(new Error('Only PDF files are allowed!'), false);
-  }
-};
-
-const uploadResume = multer({ storage: resumeStorage, fileFilter: pdfFilter });
-
-// Ensure resumes directory exists
-const fs = require('fs');
-const resumesDir = './uploads/resumes';
-if (!fs.existsSync(resumesDir)) {
-  fs.mkdirSync(resumesDir, { recursive: true });
-}
-
-// POST /api/uploads/resumes (protected, admin only)
+// POST /api/uploads/projects
 router.post(
-  "/uploads/resumes",
+  "/projects",
   protect,
   adminOnly,
-  (req, res, next) => {
-    uploadResume.single('resume')(req, res, function (err) {
-      if (err) {
-        return res.status(400).json({ success: false, message: err.message });
-      }
+  upload.single("file"),
+  async (req, res) => {
+    try {
       if (!req.file) {
         return res.status(400).json({ success: false, message: "No file uploaded" });
       }
-      res.end();
-    });
+      // Upload file to Cloudinary
+      const result = await cloudinary.uploader.upload(req.file.path, {
+        folder: "projects",
+        resource_type: "auto",
+      });
+      // Remove temp file
+      fs.unlinkSync(req.file.path);
+
+      res.json({ success: true, fileUrl: result.secure_url });
+    } catch (err) {
+      console.error("Cloudinary upload error:", err);
+      res.status(500).json({ success: false, message: "File upload failed", error: err.message });
+    }
   }
 );
-
-// Serve resumes statically with CORS
-router.use('/uploads/resumes', cors(), express.static('uploads/resumes'));
 
 module.exports = router;

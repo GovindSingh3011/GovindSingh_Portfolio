@@ -41,49 +41,58 @@ const AddProject = ({ token }) => {
     }
   };
 
-  const handleFileUpload = async () => {
-    if (!file) {
+  const addProject = async (e) => {
+    e.preventDefault();
+
+    let imageUrl = "";
+    if (file) {
+      const formData = new FormData();
+      formData.append('file', file); // 'file' should match backend field
+
+      try {
+        const response = await axios.post(
+          `${apiBaseUrl}/api/uploads/projects`,
+          formData,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (response.status === 200 && response.data.fileUrl) {
+          imageUrl = response.data.fileUrl;
+          setError('');
+          setFile(null);
+          document.querySelector('input[type="file"]').value = '';
+        } else {
+          setError('Failed to upload file. Please try again.');
+          return;
+        }
+      } catch (err) {
+        setError('Failed to upload file. Please try again.');
+        console.error(err);
+        return;
+      }
+    } else {
       setError('Please select a file to upload.');
       return;
     }
 
-    const formData = new FormData();
-    formData.append('image', file);
-
-    try {
-      const response = await axios.post(`${apiBaseUrl}/api/uploads/projects`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (response.status === 200) {
-        console.log('File uploaded successfully:', response.data);
-        setError('');
-        setFile(null);
-        document.querySelector('input[type="file"]').value = '';
-      }
-    } catch (err) {
-      setError('Failed to upload file. Please try again.');
-      console.error(err);
-    }
-  };
-
-  const addProject = async (e) => {
-    e.preventDefault();
-
-    await handleFileUpload();
-
     const finalCategory = newProject.category === 'Other' ? customCategory : newProject.category;
 
     try {
-      const response = await axios.post(`${apiBaseUrl}/api/projects`, {
-        ...newProject,
-        category: finalCategory,
-      }, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await axios.post(
+        `${apiBaseUrl}/api/projects`,
+        {
+          ...newProject,
+          category: finalCategory,
+          imageUrl, // Add imageUrl to project data
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
       setProjects([response.data.data, ...projects]);
       setNewProject({

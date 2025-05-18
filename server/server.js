@@ -27,7 +27,7 @@ app.use(morgan("dev")); // Logging
 // Rate limiting
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // Limit each IP to 100 requests per windowMs
+  max: process.env.RATE_LIMIT_MAX ? parseInt(process.env.RATE_LIMIT_MAX) : 1000, // Increase limit for dev
   standardHeaders: true,
   legacyHeaders: false,
 });
@@ -49,7 +49,7 @@ mongoose
 // Set up routes
 app.use("/api/auth", authRoutes);
 app.use("/api/projects", projectRoutes);
-app.use("/api", uploadRoutes);
+app.use("/api/uploads", uploadRoutes);
 
 // Default route
 app.get("/", (req, res) => {

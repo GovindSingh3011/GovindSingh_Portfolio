@@ -61,7 +61,7 @@ function Projects() {
           {filteredProjects.map((project, index) => (
             <Col md={4} className="project-card" key={index}>
               <ProjectCard
-                imgPath={`${apiBaseUrl}/api/uploads/projects/${project.title}.png`}
+                imgPath={project.imageUrl}
                 isBlog={project.isBlog}
                 title={project.title}
                 description={project.description}

@@ -1,10 +1,26 @@
 const Project = require('../models/project.model');
+const cloudinary = require("cloudinary").v2;
 
 // @desc    Create new project
 // @route   POST /api/projects
 // @access  Private/Admin
 exports.createProject = async (req, res) => {
   try {
+    const {
+      title,
+      description,
+      isBlog,
+      ghLink,
+      demoLink,
+      category,
+      imageUrl
+    } = req.body;
+
+    // Validate required fields
+    if (!title || !description || !category || !imageUrl) {
+      return res.status(400).json({ success: false, message: "Missing required fields" });
+    }
+
     // Create project
     const project = await Project.create(req.body);
     
@@ -142,16 +158,45 @@ exports.updateProject = async (req, res) => {
 // @access  Private/Admin
 exports.deleteProject = async (req, res) => {
   try {
-    // Find and delete project
-    const project = await Project.findByIdAndDelete(req.params.id);
-    
+    // Find project by ID
+    const project = await Project.findById(req.params.id);
+
     if (!project) {
       return res.status(404).json({
         success: false,
         message: 'Project not found'
       });
     }
-    
+
+    // Delete image from Cloudinary if imageUrl exists
+    if (project.imageUrl) {
+      try {
+        // Extract public_id from imageUrl
+        // Example: https://res.cloudinary.com/<cloud_name>/image/upload/v<version>/projects/<public_id>.<ext>
+        const matches = project.imageUrl.match(/\/upload\/(?:v\d+\/)?(.+)\.[a-zA-Z0-9]+(?:\?.*)?$/);
+        let publicId = matches ? matches[1] : null;
+
+        if (publicId) {
+          console.log("Deleting Cloudinary image with public_id:", publicId);
+          // Try deleting as image first, then as raw
+          let result = await cloudinary.uploader.destroy(publicId, { resource_type: "image" });
+          console.log("Cloudinary destroy result:", result);
+          if (result.result !== "ok" && result.result !== "not found") {
+            result = await cloudinary.uploader.destroy(publicId, { resource_type: "raw" });
+            console.log("Cloudinary destroy (raw) result:", result);
+          }
+        } else {
+          console.warn("Could not extract public_id from imageUrl:", project.imageUrl);
+        }
+      } catch (cloudErr) {
+        console.error("Cloudinary image delete error:", cloudErr);
+        // Continue even if image deletion fails
+      }
+    }
+
+    // Delete project from DB
+    await project.deleteOne();
+
     res.status(200).json({
       success: true,
       data: {}
