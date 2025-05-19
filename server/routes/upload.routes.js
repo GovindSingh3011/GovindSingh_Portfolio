@@ -14,7 +14,7 @@ cloudinary.config({
 });
 
 // Multer config for local file storage (in memory)
-const upload = multer({ dest: "tmp/" });
+const upload = multer({ dest: "/tmp" });
 
 // POST /api/uploads/projects
 router.post(
