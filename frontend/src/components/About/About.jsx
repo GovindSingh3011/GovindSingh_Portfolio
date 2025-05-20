@@ -6,6 +6,7 @@ import laptopImg from "../../assets/about.png";
 import Aboutcard from "./AboutCard.jsx";
 import SkillSet from "./SkillSet.jsx";
 import Github from "./Github.jsx";
+import Certificate from "./certificate.jsx";
 
 function About() {
   return (
@@ -32,11 +33,12 @@ function About() {
             <img src={laptopImg} alt="about" className="img-fluid" />
           </Col>
         </Row>
-        
-        <SkillSet />
-        
-        <Github />
 
+        <SkillSet />
+
+        <Certificate />
+
+        <Github />
       </Container>
     </Container>
   );
