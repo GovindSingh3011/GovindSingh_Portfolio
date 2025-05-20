@@ -12,19 +12,29 @@ function Resume() {
   const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
   const [width, setWidth] = useState(1200);
+  const [resumeUrl, setResumeUrl] = useState("");
+  const [numPages, setNumPages] = useState(null);
 
   useEffect(() => {
     setWidth(window.innerWidth);
-  }, []);
+    fetch(`${apiBaseUrl}/api/pdf/resume`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data.data) && data.data.length > 0) {
+          setResumeUrl(data.data[0].url);
+        }
+      })
+      .catch(() => setResumeUrl(""));
+  }, [apiBaseUrl]);
 
   return (
     <div>
       <Container fluid className="resume-section">
         <Particle />
-        <Row className="fork-btn" style={{ }}>
+        <Row className="fork-btn" style={{}}>
           <Button
             variant="primary"
-            href={`${apiBaseUrl}/api/uploads/resumes/Govind_Singh_Resume.pdf`}
+            href={resumeUrl}
             target="_blank"
             className="fork-btn-inner"
           >
@@ -33,12 +43,26 @@ function Resume() {
           </Button>
         </Row>
 
-        <Row className="resume">
-          <Document file={`${apiBaseUrl}/api/uploads/resumes/Govind_Singh_Resume.pdf`} className="d-flex justify-content-center">
-            <Page pageNumber={1} scale={width > 786 ? 1.7 : 0.6} />
-          </Document>
+        <Row className="resume flex-column align-items-center">
+            <Document
+              key={resumeUrl}
+              file={{
+                url: resumeUrl,
+                httpHeaders: { "Cache-Control": "no-cache" }
+              }}
+              className="d-flex flex-column align-items-center"
+              onLoadSuccess={({ numPages }) => setNumPages(numPages)}
+            >
+              {[...Array(numPages || 0)].map((_, idx) => (
+                <div key={idx + 1} style={{ marginBottom: "0.5rem" }}>
+                  <Page
+                    pageNumber={idx + 1}
+                    scale={width > 786 ? 1.7 : 0.6}
+                  />
+                </div>
+              ))}
+            </Document>
         </Row>
-
       </Container>
     </div>
   );

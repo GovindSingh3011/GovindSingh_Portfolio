@@ -13,6 +13,7 @@ dotenv.config();
 const authRoutes = require("./routes/auth.routes");
 const projectRoutes = require("./routes/project.routes");
 const uploadRoutes = require("./routes/upload.routes");
+const pdfRoutes = require("./routes/pdf.routes");
 const { verifyAdminExists } = require("./config/admin.setup");
 
 // Initialize express app
@@ -50,6 +51,7 @@ mongoose
 app.use("/api/auth", authRoutes);
 app.use("/api/projects", projectRoutes);
 app.use("/api/uploads", uploadRoutes);
+app.use("/api/pdf", pdfRoutes);
 
 // Default route
 app.get("/", (req, res) => {
