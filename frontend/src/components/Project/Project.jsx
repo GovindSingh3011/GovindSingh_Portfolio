@@ -7,18 +7,24 @@ import "./Project.css";
 function Projects() {
   const [projects, setProjects] = useState([]);
   const [filter, setFilter] = useState("All");
+  const [loading, setLoading] = useState(true);
 
   const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
+    setLoading(true);
     fetch(`${apiBaseUrl}/api/projects`)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
           setProjects(data.data);
         }
+        setLoading(false);
       })
-      .catch((err) => console.error("Error fetching projects:", err));
+      .catch((err) => {
+        console.error("Error fetching projects:", err);
+        setLoading(false);
+      });
   }, [apiBaseUrl]);
 
   const filteredProjects =
@@ -57,20 +63,26 @@ function Projects() {
           </div>
         </div>
 
-        <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
-          {filteredProjects.map((project, index) => (
-            <Col md={4} className="project-card" key={index}>
-              <ProjectCard
-                imgPath={project.imageUrl}
-                isBlog={project.isBlog}
-                title={project.title}
-                description={project.description}
-                ghLink={project.ghLink}
-                demoLink={project.demoLink}
-              />
-            </Col>
-          ))}
-        </Row>
+        {loading ? (
+          <div style={{ color: "white", textAlign: "center", margin: "2rem" }}>
+            Loading projects...
+          </div>
+        ) : (
+          <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
+            {filteredProjects.map((project, index) => (
+              <Col md={4} className="project-card" key={index}>
+                <ProjectCard
+                  imgPath={project.imageUrl}
+                  isBlog={project.isBlog}
+                  title={project.title}
+                  description={project.description}
+                  ghLink={project.ghLink}
+                  demoLink={project.demoLink}
+                />
+              </Col>
+            ))}
+          </Row>
+        )}
       </Container>
     </Container>
   );
