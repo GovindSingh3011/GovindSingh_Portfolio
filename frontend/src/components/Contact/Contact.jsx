@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Contact.css";
 import { FiMail, FiPhone, FiMapPin } from "react-icons/fi";
 import emailjs from "@emailjs/browser";
@@ -17,6 +17,23 @@ const Contact = () => {
     service: "",
     message: "",
   });
+  const [categories, setCategories] = useState([]);
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+        const res = await fetch(`${apiBaseUrl}/api/projects`);
+        const data = await res.json();
+        const uniqueCategories = [
+          ...new Set((data.data || []).map((project) => project.category)),
+        ];
+        setCategories(uniqueCategories);
+      } catch (err) {
+        setCategories([]);
+      }
+    };
+    fetchCategories();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -118,8 +135,11 @@ const Contact = () => {
               required
             >
               <option value="">Choose Service</option>
-              <option value="Web Design">Web Design</option>
-              <option value="UI/UX Design">UI/UX Design</option>
+              {categories.map((cat, idx) => (
+                <option key={idx} value={cat}>
+                  {cat}
+                </option>
+              ))}
             </select>
 
             <textarea
