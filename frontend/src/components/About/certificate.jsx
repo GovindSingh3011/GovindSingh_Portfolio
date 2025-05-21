@@ -28,7 +28,7 @@ const Certificate = () => {
             {certificates.length === 0 ? (
                 <p>No certifications found.</p>
             ) : (
-                <Row style={{ justifyContent: "center", paddingBottom: "50px"}} xs={1} sm={2} md={3} >
+                <Row style={{ justifyContent: "center", paddingBottom: "50px" }} xs={1} sm={2} md={3} >
                     {[...certificates].reverse().map((certificate) => (
                         <Col key={certificate._id} className="certificate-card">
                             <Card className="certificate-card-view">
@@ -40,7 +40,17 @@ const Certificate = () => {
                                         </span>
                                         <br />
                                         <span>
-                                            <strong style={{ color: "rgb(155 126 172)" }}>Date of Completion:</strong> {certificate.dateCompleted}
+                                            <strong style={{ color: "rgb(155 126 172)" }}>Date of Completion:</strong>{" "}
+                                            {(() => {
+                                                const val = certificate.dateCompleted;
+                                                if (!val) return "";
+                                                let [year, month] = val.split("-");
+                                                if (!year || !month) return val;
+                                                if (month.length === 1) month = "0" + month;
+                                                const date = new Date(`${year}-${month}-01`);
+                                                const monthStr = date.toLocaleString("default", { month: "long" });
+                                                return `${monthStr}, ${year}`;
+                                            })()}
                                         </span>
                                     </Card.Text>
                                     <Button
