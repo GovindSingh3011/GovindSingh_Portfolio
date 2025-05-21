@@ -79,3 +79,69 @@
 .delete-button:hover {
   background: #ef4444;
 }
+
+.flex-center-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.project-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.center-text {
+  text-align: center;
+  margin: 0;
+  flex: 0 0 auto;
+}
+
+.refresh-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.refresh-btn:hover,
+.refresh-btn:focus,
+.refresh-btn:active {
+  background: none !important;
+  color: inherit !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.project-list-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  width: 100%;
+}
+
+.project-item-flex {
+  flex: 1 1 45%;
+  min-width: 300px;
+  max-width: 48%;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+.refresh-btn.spinning svg {
+  animation: spin-refresh 0.8s linear;
+}
+
+@keyframes spin-refresh {
+  100% {
+    transform: rotate(360deg);
+  }
+}
