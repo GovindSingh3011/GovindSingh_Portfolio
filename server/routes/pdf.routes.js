@@ -144,6 +144,42 @@ router.post(
     }
 );
 
+// DELETE /api/pdf/certificate/:id
+router.delete(
+    "/certificate/:id",
+    protect,
+    adminOnly,
+    async (req, res) => {
+        try {
+            const certificate = await Certificate.findById(req.params.id);
+            if (!certificate) {
+                return res.status(404).json({ success: false, message: "Certificate not found" });
+            }
+
+            let publicId = "";
+            try {
+                const url = certificate.url;
+                const urlWithoutVersion = url.replace(/\/v\d+\//, "/");
+                const matches = urlWithoutVersion.match(/\/upload\/([^\.]+)/);
+                if (matches && matches[1]) {
+                    publicId = matches[1];
+                    publicId = publicId.replace(/\.[^/.]+$/, "");
+                    if (publicId.startsWith("/")) publicId = publicId.substring(1);
+                }
+            } catch (e) {
+            }
+            if (publicId) {
+                await cloudinary.uploader.destroy(publicId, { resource_type: "image" });
+            }
+            await certificate.deleteOne();
+            res.json({ success: true, message: "Certificate deleted successfully" });
+        } catch (err) {
+            console.error("Certificate delete error:", err);
+            res.status(500).json({ success: false, message: "Certificate delete error: " + err.message, error: err });
+        }
+    }
+);
+
 // GET /api/pdf/certificate
 router.get(
     "/certificate",
