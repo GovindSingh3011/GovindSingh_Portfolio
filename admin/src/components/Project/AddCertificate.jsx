@@ -73,7 +73,7 @@ const AddCertificate = ({ token }) => {
 
                 
                 <div className="form-row">
-                    <div style={{ width: "50%" }}>
+                    <div style={{ width: "60%" }}>
                         <input
                         type="text"
                         placeholder="Organization"
@@ -87,7 +87,6 @@ const AddCertificate = ({ token }) => {
 
                     <label>Date Completed:</label>
                     <div
-                        style={{ width: "25%" }}
                         onClick={e => {
                             const input = e.currentTarget.querySelector("input[type='month']");
                             if (input) input.showPicker ? input.showPicker() : input.focus();
