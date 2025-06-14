@@ -36,6 +36,9 @@ function About() {
 
         <SkillSet />
 
+        <h1 className="project-heading">
+          Professional <strong className="purple">Certifications</strong>
+        </h1>
         <Certificate />
 
         <Github />

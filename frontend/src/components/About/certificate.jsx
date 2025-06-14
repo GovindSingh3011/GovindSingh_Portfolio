@@ -22,9 +22,6 @@ const Certificate = () => {
 
     return (
         <>
-            <h1 className="project-heading">
-                Professional <strong className="purple">Certifications</strong>
-            </h1>
             {certificates.length === 0 ? (
                 <p>No certifications found.</p>
             ) : (
